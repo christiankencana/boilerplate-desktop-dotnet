@@ -1,0 +1,38 @@
+-- Create the database
+CREATE DATABASE boilerplate_desktop_dotnet;
+GO
+
+USE boilerplate_desktop_dotnet;
+GO
+
+-- Create users table
+CREATE TABLE users (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    username NVARCHAR(100) NOT NULL,
+    email NVARCHAR(100) NOT NULL,
+    password_hash NVARCHAR(255) NOT NULL,
+    full_name NVARCHAR(100) NULL,
+    created_at DATETIME NOT NULL DEFAULT GETDATE(),
+    last_login DATETIME NULL
+);
+
+-- Create roles table
+CREATE TABLE roles (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(50) NOT NULL,
+    description NVARCHAR(255) NULL
+);
+
+-- Create user_has_roles table
+CREATE TABLE user_has_roles (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    CONSTRAINT FK_UserRoles_Users FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT FK_UserRoles_Roles FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+-- Insert initial roles
+INSERT INTO roles (name, description)
+VALUES ('Admin', 'Administrator with full access'),
+       ('User', 'Regular user with limited access');
