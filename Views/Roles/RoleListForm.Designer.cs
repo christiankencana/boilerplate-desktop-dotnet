@@ -1,4 +1,4 @@
-﻿namespace boilerplate_desktop_dotnet.Views.roles
+﻿namespace boilerplate_desktop_dotnet.Views.Roles
 {
     partial class RoleListForm
     {
@@ -28,17 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // RoleListForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "RoleListForm";
             this.Text = "RoleListForm";
-            this.ResumeLayout(false);
-
         }
 
         #endregion

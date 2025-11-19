@@ -1,4 +1,4 @@
-﻿namespace boilerplate_desktop_dotnet.Views.roles
+﻿namespace boilerplate_desktop_dotnet.Views.Roles
 {
     partial class RoleForm
     {

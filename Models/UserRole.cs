@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace boilerplate_desktop_dotnet.Models
 {
-    // internal class Role
+    // internal class UserRole
     // {
     // }
 
-    public class Role
+    public class UserRole
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
+        public string UserName { get; set; }
+        public string RoleName { get; set; }
     }
 }

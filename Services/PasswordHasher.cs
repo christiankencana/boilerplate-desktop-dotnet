@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using BCrypt.Net;
 
-namespace boilerplate_desktop_dotnet.Utils
+namespace boilerplate_desktop_dotnet.Services
 {
     public static class PasswordHasher
     {

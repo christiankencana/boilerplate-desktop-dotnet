@@ -8,8 +8,8 @@ GO
 -- Create users table
 CREATE TABLE users (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    username NVARCHAR(100) NOT NULL,
-    email NVARCHAR(100) NOT NULL,
+    username NVARCHAR(100) NOT NULL UNIQUE,
+    email NVARCHAR(100) NOT NULL UNIQUE,
     password_hash NVARCHAR(255) NOT NULL,
     full_name NVARCHAR(100) NULL,
     created_at DATETIME NOT NULL DEFAULT GETDATE(),
@@ -19,7 +19,7 @@ CREATE TABLE users (
 -- Create roles table
 CREATE TABLE roles (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    name NVARCHAR(50) NOT NULL,
+    name NVARCHAR(50) NOT NULL UNIQUE,
     description NVARCHAR(255) NULL
 );
 
@@ -29,10 +29,21 @@ CREATE TABLE user_has_roles (
     user_id INT NOT NULL,
     role_id INT NOT NULL,
     CONSTRAINT FK_UserRoles_Users FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT FK_UserRoles_Roles FOREIGN KEY (role_id) REFERENCES roles(id)
+    CONSTRAINT FK_UserRoles_Roles FOREIGN KEY (role_id) REFERENCES roles(id),
+    CONSTRAINT UK_UserRoles UNIQUE (user_id, role_id)
 );
 
 -- Insert initial roles
 INSERT INTO roles (name, description)
 VALUES ('Admin', 'Administrator with full access'),
        ('User', 'Regular user with limited access');
+
+-- Insert default admin user (password: admin123)
+INSERT INTO users (username, email, password_hash, full_name)
+VALUES ('admin', 'admin@localhost.com', '', 'System Administrator');
+
+-- Assign admin role to admin user
+INSERT INTO user_has_roles (user_id, role_id)
+SELECT u.id, r.id 
+FROM users u, roles r 
+WHERE u.username = 'admin' AND r.name = 'Admin';
